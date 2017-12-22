@@ -11,6 +11,9 @@ RUN apt-get install -yqq unzip
 RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
 RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 
+# install xvfb
+RUN apt-get install -yqq xvfb
+
 #install ffmpeg
 RUN sh -c 'echo "deb http://deb.debian.org/debian jessie-backports main contrib non-free" >> /etc/apt/sources.list'
 RUN sh -c 'echo "deb http://deb.debian.org/debian jessie-backports-sloppy main contrib non-free" >> /etc/apt/sources.list'
@@ -19,3 +22,4 @@ RUN apt-get install -y ffmpeg
 
 # set display port to avoid crash
 ENV DISPLAY=:99
+ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
