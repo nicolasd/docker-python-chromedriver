@@ -14,11 +14,13 @@ RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 # install xvfb
 RUN apt-get install -yqq xvfb
 
-#install ffmpeg
-RUN sh -c 'echo "deb http://deb.debian.org/debian jessie-backports main contrib non-free" >> /etc/apt/sources.list'
-RUN sh -c 'echo "deb http://deb.debian.org/debian jessie-backports-sloppy main contrib non-free" >> /etc/apt/sources.list'
-RUN apt-get -y update
-RUN apt-get install -y ffmpeg
+# install firefox driver
+RUN wget -O /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
+RUN tar -xvzf /tmp/geckodriver.tar.gz -C /usr/local/bin/
+RUN ls /usr/local/bin/
+
+#install Firefox
+RUN apt-get install -y firefox
 
 # set display port to avoid crash
 ENV DISPLAY=:99
